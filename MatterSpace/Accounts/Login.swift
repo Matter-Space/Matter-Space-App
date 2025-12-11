@@ -13,6 +13,8 @@ struct Login: View {
     @State var password:String = ""
     @State var seePassword:Bool = false
     @State var isLogging:Bool = false
+    @AppStorage("userType") var userType: String = ""
+    
     var body: some View {
         NavigationStack{
             VStack{
