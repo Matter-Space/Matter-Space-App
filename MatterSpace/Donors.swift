@@ -27,8 +27,9 @@ struct Donors: View {
                         }
                 }
             }
-            .navigationTitle("Donors")
+            .toolbar(.hidden,for: .navigationBar)
         }
+        .navigationTitle("Donors")
     }
 }
 #Preview {
