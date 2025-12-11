@@ -17,7 +17,7 @@ struct TabsPage: View {
                 }
             Community()
                 .tabItem {
-                    Label("Community", systemImage: "person.3")
+                    Label("Community", systemImage: "person.3.fill")
                        
                 }
                 
