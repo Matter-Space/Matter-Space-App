@@ -27,8 +27,9 @@ struct HiringCompanies: View {
                         }
                 }
             }
-            .navigationTitle("Hiring Companies")
+            .toolbar(.hidden,for: .navigationBar)
         }
+        .navigationTitle("Hiring Companies")
     }
 }
 
