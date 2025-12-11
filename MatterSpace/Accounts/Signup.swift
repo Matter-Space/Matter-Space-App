@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct Signup: View {
     
     @State var userName: String = ""
@@ -17,6 +18,9 @@ struct Signup: View {
     @State var seeConfirmPassword: Bool = false
     @State var seePassword:Bool = false
     @AppStorage("userType") var userType:String = "Student"
+    let service:UserService = UserService()
+    @AppStorage("token") var token: String = ""
+    
     let userTypes = ["Student", "Facilitator", "Donor", "Hiring Company", "Project Manager", "Manager"]
     
     
@@ -40,6 +44,7 @@ struct Signup: View {
                     HStack {
                         TextField("Email", text: $email)
                             .padding(.leading, 25)
+                            .textInputAutocapitalization(.never)
                         Image(systemName: "person.fill")
                             .foregroundStyle(.gray)
                             .padding(.trailing,25)
@@ -124,7 +129,16 @@ struct Signup: View {
                     }
                     
                     Button{
-                        isSignup.toggle()
+                        if password != confirmPassword{
+                            print("Match don't match!")
+                            return
+                        } else if (userName.isEmpty && email.isEmpty && password.isEmpty && confirmPassword.isEmpty){
+                            print("Enter all details")
+                            return
+                        } else{
+                            Signup()
+                        }
+                    
                     }label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
@@ -138,7 +152,7 @@ struct Signup: View {
                     }
                     .padding(.top, 30)
                     .navigationDestination(isPresented: $isSignup){
-                        HomePage()
+                        TabsPage()
                     }
                     
                     HStack {

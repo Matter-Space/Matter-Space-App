@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomePage: View {
     @AppStorage("userType") var userType: String = ""
+    @AppStorage("token") var token: String = ""
     var body: some View {
         
         NavigationView{
