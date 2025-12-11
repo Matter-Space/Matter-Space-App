@@ -1,0 +1,62 @@
+### Xcode/Build Artifacts ###
+# Built files and directories
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+*.xcuserdata
+*.xccheckout
+
+# Swift Package Manager (if used)
+.swiftpm/
+
+# Dependency managers (if used)
+Carthage/Build/
+Pods/
+
+# Derived data and logs
+DerivedData
+.DS_Store
+*.log
+Library/Developer/Xcode/UserData/UserInterfaceState.xcuser
+
+# Auto-generated scheme files
+*.xcscheme
+*.xcscheme.user
+project.xcworkspace/
+!project.xcworkspace/project.xcconfig
+!project.xcworkspace/xcshareddata/
+
+# Generated asset catalogs and previews
+*/GeneratedAssetCatalog
+*.swift-version
+
+### Testing Artifacts (XC Tests / UI Tests) ###
+# Test-specific build data, logs, and coverage reports
+# While the main `build/` handles most, these are good specifics
+*.xctestplan
+*.xctestrun
+*.profraw
+*.profdata
+
+### Environment Variables and Secrets ###
+# IMPORTANT: Use this section to exclude files that store API keys,
+# sensitive configurations, or environment-specific settings.
+
+# General convention for environment files (customize these names!)
+.env
+.env.*
+config/secrets.plist
+config/api_keys.json
+config/*.private.json
+
+# A common pattern for storing secrets in an Xcode project:
+# An auto-generated file that contains keys loaded at build time.
+# Use this if you generate a config file from your .env file.
+Secrets.swift
+Configuration.swift
+
+### Mac OS X and Editor Specific ###
+.idea/      # JetBrains IDEs (e.g., AppCode)
+.vscode/    # VS Code settings
+.localized  # Finder localization files
