@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TabsPage: View {
+    @AppStorage("token") var token: String = ""
     var body: some View {
         TabView{
             HomePage()

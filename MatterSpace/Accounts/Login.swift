@@ -14,6 +14,10 @@ struct Login: View {
     @State var seePassword:Bool = false
     @State var isLogging:Bool = false
     @AppStorage("userType") var userType: String = ""
+    @AppStorage("token") var token: String = ""
+    @State var errorMessage:String?
+    
+    let service:UserService = UserService()
     
     var body: some View {
         NavigationStack{
@@ -21,6 +25,7 @@ struct Login: View {
                 HStack {
                     TextField("Email", text: $email)
                         .padding(.leading, 25)
+                        .textInputAutocapitalization(.never)
                     Image(systemName: "person.fill")
                         .foregroundStyle(.gray)
                         .padding(.trailing,25)
@@ -59,13 +64,13 @@ struct Login: View {
                 .padding(.vertical,23)
                 
                 Button{
-                    isLogging.toggle()
+                    Login()
                 }label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
                             .foregroundStyle(.orange)
                             .frame(width: 330, height: 50)
-                        Text("Sign Up")
+                        Text("Log in")
                             .foregroundStyle(.white).font(.title2)
                             .bold()
                     }
@@ -73,7 +78,7 @@ struct Login: View {
                 }
                 .padding(.top, 30)
                 .navigationDestination(isPresented: $isLogging){
-                    HomePage()
+                    TabsPage()
                 }
                 
                 HStack {

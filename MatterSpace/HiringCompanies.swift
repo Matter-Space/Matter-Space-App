@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HiringCompanies: View {
+    @AppStorage("token") var token: String = ""
     @Environment(\.openURL) var openURL
     @State private var hiringCompanies = [
         ("Jamf", "https://www.jamf.com"),

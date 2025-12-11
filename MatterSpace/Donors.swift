@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Donors: View {
     @Environment(\.openURL) var openURL
+    @AppStorage("token") var token: String = ""
     
     @State private var donors = [
         ("Matter", "https://www.matter.ngo"),
