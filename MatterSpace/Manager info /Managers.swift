@@ -179,19 +179,18 @@ struct Managers: View {
                 NavigationLink("Tsitsi"){
                     Tsitsi()
                 }
-                .onDelete(perform: deleteManager)
-              .navigationTitle("Managers")
-            .sheet(isPresented: $showAddManagerForm) {
-                AddManagerForm(managers: $managers, managerToEdit: $managerToEdit)
+                .navigationTitle("Managers")
+                .sheet(isPresented: $showAddManagerForm) {
+                    AddManagerForm(managers: $managers, managerToEdit: $managerToEdit)
+                }
             }
         }
+        
+    }
+    private func deleteManager(at offsets: IndexSet) {
     }
     
 }
-private func deleteManager(at offsets: IndexSet) {
-}
-
-
 
 
 #Preview {
