@@ -107,6 +107,7 @@ struct InternPage: View {
     @State var isAdding:Bool = false
     let internService: InternService = InternService()
     @State private var searchIntern: String = ""
+    @AppStorage("token") var token: String = ""
     
     var body: some View {
         NavigationStack {

@@ -10,6 +10,8 @@ import SwiftUI
 struct InternDetails:View {
     @State var intern: Intern =
     Intern(id:"3", name: "Sean", academicInfo: "He joined MCRI in May 2025. He has managed to get certfications in Swift Associate and Jamf certified Associate")
+    @AppStorage("token") var token: String = ""
+    
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {

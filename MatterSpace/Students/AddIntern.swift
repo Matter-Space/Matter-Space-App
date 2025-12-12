@@ -12,6 +12,8 @@ struct AddIntern:View {
     @State var academicInfo : String = ""
     @Binding var added:Bool
     let internService: InternService = InternService()
+    @AppStorage("token") var token: String = ""
+    
     var body: some View{
         NavigationStack {
             VStack(alignment: .leading){

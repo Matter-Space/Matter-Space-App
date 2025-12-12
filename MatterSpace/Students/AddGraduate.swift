@@ -12,6 +12,7 @@ struct AddGraduate:View {
     @State var academicInfo : String = ""
     @Binding var added:Bool
     let graduateService:GraduateService = GraduateService()
+    @AppStorage("token") var token: String = ""
     
     var body: some View{
         NavigationStack {
