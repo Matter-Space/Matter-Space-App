@@ -11,6 +11,7 @@ struct Nono: View {
     @AppStorage("userType") var userType: String = ""
     @State private var showAddProManagertasks = false
     @State private var projectManagers: [ProjectManagerInfo] = []
+    @State private var managerToEdit: ProjectManagerInfo? = nil
     var body: some View {
         NavigationView {
             List {
@@ -29,8 +30,12 @@ struct Nono: View {
                 }
             }
             .sheet(isPresented: $showAddProManagertasks) {
-                AddProManagerForm(projectManagers: $projectManagers)
+                AddProManagerForm(
+                    projectManagers: $projectManagers,
+                    managerToEdit: $managerToEdit
+                )
             }
+            
         }
     }
 }

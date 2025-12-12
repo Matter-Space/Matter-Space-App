@@ -6,6 +6,16 @@
 //
 
 import SwiftUI
+import SwiftUI
+
+struct ProjectManagerInfomation: Identifiable {
+    var id: UUID = UUID()
+    var name: String
+    var role: String
+    var description: String
+    var linkedin: String
+}
+
 struct ProjectManagerDetailView: View {
     let pm: ProjectManagerInfo
     
@@ -16,7 +26,6 @@ struct ProjectManagerDetailView: View {
             
             VStack(alignment: .leading, spacing: 20) {
                 
-                // TITLE + ROLE SECTION
                 VStack(alignment: .leading, spacing: 5) {
                     Text("\(pm.name)'s Information")
                         .font(.title)
@@ -61,47 +70,15 @@ struct ProjectManagerDetailView: View {
         .navigationTitle(pm.name)
     }
 }
-struct ProjectManagers: View {
-    @AppStorage("userType") var userType: String = ""
-    @State private var showAddProManagerForm = false
-    
-    
-    @State private var projectManagers: [ProjectManagerInfo] = [
-        ProjectManagerInfo(
-            name: "Nono",
+
+
+struct ProjectManagerDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProjectManagerDetailView(pm: ProjectManagerInfo(
+            name: "John Doe",
             role: "Senior Project Manager",
-            description: "Nono oversees community education projects and ensures smooth operations.",
-            linkedin: "https://www.linkedin.com/in/nono"
-        )
-    ]
-    
-    var body: some View {
-        NavigationView {
-            List {
-                ForEach(projectManagers) { projectManager in
-                    NavigationLink(destination: ProjectManagerDetailView(pm: projectManager)) {
-                        Text(projectManager.name)
-                    }
-                }
-            }
-            .navigationTitle("Project Managers")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showAddProManagerForm = true
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                }
-            }
-            .sheet(isPresented: $showAddProManagerForm) {
-                AddProManagerForm(projectManagers: $projectManagers)
-            }
-        }
+            description: "John oversees project operations and ensures smooth execution.",
+            linkedin: "https://www.linkedin.com/in/johndoe"
+        ))
     }
-}
-
-
-#Preview {
-    ProjectManagers()
 }
