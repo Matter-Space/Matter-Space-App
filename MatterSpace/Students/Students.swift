@@ -46,63 +46,168 @@ struct Students: View {
 
 struct StudentPage: View {
     
-    @State var students: [StudentModel] = [
-        StudentModel(id:"1", name: "Sean", academicInfo: "He joined MCRI in May 2025. He has managed to get certfications in Swift Associate and Jamf certified Associate"),
-        StudentModel(id:"2", name: "Crown", academicInfo: "He joined MCRI in Feb 2025. He has managed to get certfications in Swift Associate and Jamf certified Associate")
-    ]
+    @State var students: [StudentModel] = []
+    @State var student = StudentModel(id:"2", name: "Crown", academicInfo: "He joined MCRI in Feb 2025. He has managed to get certfications in Swift Associate and Jamf certified Associate")
+    @AppStorage("token") var token:String = ""
+    @State var isAdding:Bool = false
+    @State var errorMessage: String?
+    let studentService: StudentService = StudentService()
+    @State var searchStudent: String = ""
     
     var body: some View {
         NavigationStack {
             VStack{
-                List(students, id: \.id){ student in
+               List(filteredStudents){ student in
                     NavigationLink(student.name){
                         StudentDetails(student: student)
                     }
-                }
+               }
                 
+            }
+            .searchable(text: $searchStudent, prompt: "Search for Student")
+            .onAppear(){
+                refresh()
+            }
+            .toolbar{
+                ToolbarItem(placement: .bottomBar){
+                    Button{
+                        isAdding.toggle()
+                    } label:{
+                        Image(systemName: "plus")
+                    }
+                    .sheet(isPresented: $isAdding, onDismiss: dismiss){
+                        AddStudent(added: $isAdding)
+                            .presentationDetents([.medium])
+                            .onDisappear(){
+                                refresh()
+                            }
+                    }
+                    
+                }
             }
             
         }
     }
+    func dismiss(){
+        
+    }
+    var filteredStudents:[StudentModel]{
+        if searchStudent.isEmpty{
+            return students
+        } else{
+            return students.filter {$0.name.localizedCaseInsensitiveContains(searchStudent)}
+        }
+    }
 }
 
-    struct InternPage: View {
-        @AppStorage("selectedTab") var selectedTab: String = "Students"
-        @State var interns: [Intern] = [
-            Intern(id:"1", name: "Faffie", academicInfo: "He joined MCRI in May 2025. He has managed to get certfications in Swift Associate,  Swift Certified User and Jamf certified Associate"),
-            Intern(id:"2", name: "Mildred", academicInfo: "She joined MCRI in 2024. She has managed to get certfications in Swift Associate, Swift Certified User, and Jamf certified Associate.")
-        ]
-        
-        
-        var body: some View {
-            NavigationStack {
-                List(interns, id: \.id){ intern in
-                    NavigationLink(intern.name){
-                        InternDetails(intern: intern)
+struct InternPage: View {
+    @AppStorage("selectedTab") var selectedTab: String = "Students"
+    @State var interns: [Intern] = []
+        @State var intern = Intern(id:"1", name: "Faffie", academicInfo: "He joined MCRI in May 2025. He has managed to get certfications in Swift Associate,  Swift Certified User and Jamf certified Associate")
+    @State var isAdding:Bool = false
+    let internService: InternService = InternService()
+    @State private var searchIntern: String = ""
+    
+    var body: some View {
+        NavigationStack {
+           List(filteredInterns){ intern in
+                NavigationLink(intern.name){
+                    InternDetails(intern: intern)
+              }
+            }
+           .searchable(text: $searchIntern, prompt: "Search for Intern")
+                .onAppear(){
+                    refresh()
+                }
+            .toolbar{
+                ToolbarItem(placement: .bottomBar){
+                    Button{
+                        isAdding.toggle()
+                    } label:{
+                        Image(systemName: "plus")
+                    }
+                    .sheet(isPresented: $isAdding, onDismiss: dismiss){
+                        AddIntern(added: $isAdding)
+                            .presentationDetents([.medium])
+                            .onDisappear(){
+                                refresh()
+                            }
                     }
                 }
             }
         }
     }
+    func dismiss(){
+        
+    }
+    var filteredInterns:[Intern]{
+        if searchIntern.isEmpty{
+            return interns
+        } else{
+            return interns.filter {$0.name.localizedCaseInsensitiveContains(searchIntern)}
+        }
+    }
+}
 
 struct GraduatePage: View {
+    @AppStorage("token") var token:String = ""
     @AppStorage("selectedTab") var selectedTab: String = "Students"
-    @State var graduates: [Graduate] = [
-        Graduate(id:"1", name: "Faffie", academicInfo: "He joined MCRI in May 2025. He has managed to get certfications in Swift Associate,  Swift Certified User and Jamf certified Associate"),
-        Graduate(id:"2", name: "Mildred", academicInfo: "She joined MCRI in 2024. She has managed to get certfications in Swift Associate, Swift Certified User, and Jamf certified Associate.")
-    ]
+    let graduateService: GraduateService = GraduateService()
+    @State var graduates: [Graduate] = []
+    
+        @State var graduate = Graduate(id:"1", name: "Faffie", academicInfo: "He joined MCRI in May 2025. He has managed to get certfications in Swift Associate,  Swift Certified User and Jamf certified Associate")
+    
+    @State var isAdding:Bool = false
+    @State private var searchGraduate:String = ""
     
     var body: some View {
         NavigationStack {
-            List(graduates, id: \.id){ graduate in
-                NavigationLink(graduate.name){
-                    GraduateDetails(graduate: graduate)
+            ZStack {
+                VStack {
+                   List(filteredGraduates){ graduate in
+                        NavigationLink(graduate.name){
+                            GraduateDetails(graduate: graduate)
+                        }
+                    }
+                }
+                .searchable(text: $searchGraduate, prompt: "Search for a graduate")
+                .onAppear(){
+                    refresh()
+                }
+                .toolbar{
+                    ToolbarItem(placement: .bottomBar){
+                        Button{
+                            isAdding.toggle()
+                        } label:{
+                            Image(systemName: "plus")
+                        }
+                        .sheet(isPresented: $isAdding, onDismiss: dismiss){
+                            AddGraduate(added: $isAdding)
+                                .presentationDetents([.medium])
+                                .onDisappear(){
+                                    refresh()
+                                }
+                        }
+                    }
                 }
             }
+            
         }
     }
-    
+    func dismiss(){
+        
+    }
+    var filteredGraduates:[Graduate]{
+        if searchGraduate.isEmpty{
+            return graduates
+        } else{
+            return graduates.filter {$0.name.localizedCaseInsensitiveContains(searchGraduate)}
+        }
+    }
 }
+
+
+
 
 #Preview {
     StudentPage()

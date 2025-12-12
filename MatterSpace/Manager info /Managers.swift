@@ -72,11 +72,13 @@ struct Managers: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(managers) { manager in
-                    NavigationLink(destination: ManagerDetailView(manager: manager)) {
-                        Text(manager.name)
-                    }
+                NavigationLink("David Saltmarsh"){
+                    Dave()
                 }
+                NavigationLink("Tsitsi"){
+                    Tsitsi()
+                }
+                
             }
             .navigationTitle("Managers")
             .toolbar {

@@ -135,3 +135,6 @@ struct AddFacilitatorView: View {
 }
 
 
+#Preview{
+    Facilitators()
+}

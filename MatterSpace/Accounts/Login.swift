@@ -78,7 +78,7 @@ struct Login: View {
                 }
                 .padding(.top, 30)
                 .navigationDestination(isPresented: $isLogging){
-                    TabsPage()
+                    Students()
                 }
                 
                 HStack {
