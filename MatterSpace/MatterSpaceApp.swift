@@ -11,7 +11,7 @@ import SwiftUI
 struct MatterSpaceApp: App {
     var body: some Scene {
         WindowGroup {
-            ProjectManagers()
+            StartupPage()
         }
     }
 }
