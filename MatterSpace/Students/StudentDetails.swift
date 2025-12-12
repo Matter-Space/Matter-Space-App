@@ -11,6 +11,7 @@ struct StudentDetails:View {
     @AppStorage("selectedTab") var selectedTab:String = ""
     @State var student: StudentModel =
     StudentModel(id:"1", name: "Sean", academicInfo: "He joined MCRI in May 2025. He has managed to get certfications in Swift Associate and Jamf certified Associate")
+    @AppStorage("token") var token: String = ""
     
     
     var body: some View {
