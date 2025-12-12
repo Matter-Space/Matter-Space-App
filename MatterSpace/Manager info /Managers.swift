@@ -173,27 +173,14 @@ struct Managers: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(managers.indices, id: \.self) { index in
-                    NavigationLink(destination: ManagerDetailView(manager: managers[index])) {
-                        HStack {
-                            Text(managers[index].name)
-                            Spacer()
-                            
-                            Button(action: {
-                                
-                                managerToEdit = managers[index]
-                                showAddManagerForm = true
-                            }) {
-                                Image(systemName: "pencil")
-                                    .foregroundColor(.blue)
-                            }
-                            .buttonStyle(BorderlessButtonStyle())
-                        }
-                    }
+                NavigationLink("David Saltmarsh"){
+                    Dave()
+                }
+                NavigationLink("Tsitsi"){
+                    Tsitsi()
                 }
                 .onDelete(perform: deleteManager)
-            }
-            .navigationTitle("Managers")
+              .navigationTitle("Managers")
             .sheet(isPresented: $showAddManagerForm) {
                 AddManagerForm(managers: $managers, managerToEdit: $managerToEdit)
             }
