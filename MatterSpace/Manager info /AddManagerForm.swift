@@ -24,6 +24,7 @@ struct AddManagerForm: View {
     @State private var linkedin = ""
     
     @Binding var managers: [Manager]
+    @Binding var managerToEdit: Manager? // New binding for editing
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -71,17 +72,26 @@ struct AddManagerForm: View {
                     }
                     
                     Button(action: {
-                        let newManager = Manager(
-                            name: name,
-                            role: role,
-                            description: description,
-                            linkedin: linkedin
-                        )
-                        
-                        managers.append(newManager)
+                        if let edit = managerToEdit,
+                           let index = managers.firstIndex(where: { $0.id == edit.id }) {
+                            // Edit existing manager
+                            managers[index].name = name
+                            managers[index].role = role
+                            managers[index].description = description
+                            managers[index].linkedin = linkedin
+                        } else {
+                            // Add new manager
+                            let newManager = Manager(
+                                name: name,
+                                role: role,
+                                description: description,
+                                linkedin: linkedin
+                            )
+                            managers.append(newManager)
+                        }
                         dismiss()
                     }) {
-                        Text("Save Manager")
+                        Text(managerToEdit == nil ? "Save Manager" : "Save Changes")
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -99,6 +109,16 @@ struct AddManagerForm: View {
                 .padding(.horizontal)
             }
         }
-        .navigationTitle("Add Manager")
+        .navigationTitle(managerToEdit == nil ? "Add Manager" : "Edit Manager")
+        .onAppear {
+            // Pre-fill fields if editing
+            if let edit = managerToEdit {
+                name = edit.name
+                role = edit.role
+                description = edit.description
+                linkedin = edit.linkedin
+            }
+        }
     }
 }
+
