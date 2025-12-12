@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HiringCompanies: View {
+    @AppStorage("token") var token: String = ""
     @Environment(\.openURL) var openURL
     @State private var hiringCompanies = [
         ("Jamf", "https://www.jamf.com"),
@@ -27,8 +28,9 @@ struct HiringCompanies: View {
                         }
                 }
             }
-            .navigationTitle("Hiring Companies")
+            .toolbar(.hidden,for: .navigationBar)
         }
+        .navigationTitle("Hiring Companies")
     }
 }
 
