@@ -21,8 +21,13 @@ struct TabsPage: View {
                     Label("Community", systemImage: "person.3.fill")
                        
                 }
+            ProgressCheckerView()
+                .tabItem {
+                    Label("Progress", systemImage: "chart.line.uptrend.xyaxis")
+                }
                 
             }
+        .tint(Color.orange)
         
         }
 

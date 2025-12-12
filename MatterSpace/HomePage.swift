@@ -31,7 +31,7 @@ struct HomePage: View {
                     .listRowInsets(EdgeInsets(top:40, leading:16, bottom:40, trailing:16))
                     
                     NavigationLink("Project Manager"){
-                        ProjectManagers()
+                        Managerss()
                     }
                     .listRowInsets(EdgeInsets(top:40, leading:16, bottom:40, trailing:16))
                     
